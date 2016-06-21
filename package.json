@@ -18,6 +18,7 @@
   "homepage": "https://github.com/hanmiton/PaginaWebNode#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "mongoose": "^4.5.1"
   }
 }
