@@ -38,4 +38,8 @@ app.get("/",function(req,res){
 	res.render("index");
 });
 
+app.get("/menu/new",function(req,res){
+	res.render("menu/new");
+});
+
 app.listen("8080");
