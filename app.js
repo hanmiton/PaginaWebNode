@@ -1,10 +1,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 var app = express();
 
 mongoose.connect("mongodb://localhost/primera");
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 //definir el schema de nuestro sproductos
 
 var productSchema = {
@@ -16,29 +18,38 @@ var productSchema = {
 
 var Product = mongoose.model("Product", productSchema);
 
-
-
 app.set("view engine","jade");
 
 app.use(express.static("public"));
 
 app.get("/",function(req,res){
-/*	var data = {
-		title : "Mi primer super producto",
-		descripiton : "Una mega super hiper compra",
-		imageUrl : "data.png",
-		pricing: 10
-	}
-
-	var product = new Product(data);
-
-	product.save(function(err){
-		console.log(product);
-	});*/
+/*	*/
 	res.render("index");
 });
 
-app.get("/menu/new",function(req,res){
+app.post("/menu",function(req,res){
+	if(req.body.password == "1234567"){
+		var data = {
+		title : req.body.title,
+		descripiton : req.body.description,
+		imageUrl : "data.png",
+		pricing: req.body.pricing		
+	}
+
+		var product = new Product(data);
+
+		product.save(function(err){
+			console.log(product);
+			res.render("index");
+		});
+	}else{
+		res.render("/menu/new");
+	}
+
+	
+});
+
+app.get("/menu",function(req,res){
 	res.render("menu/new");
 });
 
